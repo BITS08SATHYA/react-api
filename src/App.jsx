@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import './App.css'
+import axios from 'axios'
 
 function App() {
 
@@ -9,13 +10,14 @@ function App() {
 
     useEffect(() => {
         setLoading(true)
-        fetch('https://jsonplaceholder.typicode.com/posts')
-            .then(response => response.json())
-            .then(json => {
-                setData(json)
+        axios.all([
+            axios.get('https://jsonplaceholder.typicode.com/posts'),
+            axios.get('https://jsonplaceholder.typicode.com/users')
+        ]).then(axios.spread((posts,users) => {
+                setData(posts.data)
                 setLoading(false)
-                throw new Error('Something went wrong')
-            })
+                // throw new Error('Something went wrong')
+            }))
             .catch(error => {
                 console.log(`Error fetching data from ${error}`)
                 setError('Failed to fetch the data!')
