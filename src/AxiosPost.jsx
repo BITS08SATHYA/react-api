@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import './App.css';
-import axios from 'axios';
+import api from "./api/api.js";
 
 
 //
@@ -9,19 +9,7 @@ import axios from 'axios';
 //     return response;
 // });
 
-const api = axios.create({
-    baseURL: 'https://jsonplaceholder.typicode.com',
-    headers: {
-        'Authorization': 'Bearer ',
-        'Content-Type': 'application/json'
 
-    }
-});
-
-api.interceptors.request.use(request => {
-    console.log('Starting request...');
-    return request;
-});
 
 function App(){
 
